@@ -1,4 +1,4 @@
-#include "core/engine.hpp"
+#include "core/Engine.hpp"
 #include "core/Color.hpp"
 #include <SDL2/SDL.h>
 
