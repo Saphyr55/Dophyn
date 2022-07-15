@@ -1,5 +1,5 @@
 #include "core/Engine.hpp"
-#include "core/Color.hpp"
+#include "utils/Color.hpp"
 #include <SDL2/SDL.h>
 
 using namespace Dophyn;

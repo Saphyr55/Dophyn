@@ -1,4 +1,4 @@
-#include "core/Color.hpp"
+#include "utils/Color.hpp"
 #include <SDL2/SDL.h>
 
 Color::Color(Uint8 red, Uint8 green, Uint8 blue)

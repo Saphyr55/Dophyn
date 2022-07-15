@@ -2,7 +2,7 @@
 
 project (Dophyn)
 
-include_directories(include)
+include_directories(include ${SDL2_INCLUDE_DIRS})
 
 add_executable (${PROJECT_NAME} "src/main.cpp" "include/utils/Color.hpp" "include/core/Engine.hpp" "include/utils/matrix.hpp" "include/utils/Point.hpp" "include/utils/vector.hpp" "src/utils/Color.cpp" "src/core/Engine.cpp" "src/utils/matrix.cpp" "src/utils/Point.cpp" "src/utils/vector.cpp")
 
@@ -14,4 +14,9 @@ if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2_image)
 endif()
 
+if(UNIX)
+    find_package(SDL2 REQUIRED)
+    include_directories(${SDL2_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
+endif(UNIX)
 
