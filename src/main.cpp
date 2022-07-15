@@ -1,12 +1,12 @@
 ﻿#include <iostream>
 #include "core/Engine.hpp"
-#include "core/matrix.hpp"
+#include "utils/matrix.hpp"
 #include <SDL2/SDL.h>
 
 int main(int argc, char **argv)
 {
 
-    engine::Engine *engine = new engine::Engine();
+    Dophyn::Engine *engine = new Dophyn::Engine();
 
     if (FAILURE == engine->init("My app"))
         exit(EXIT_FAILURE);

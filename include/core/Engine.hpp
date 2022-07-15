@@ -1,19 +1,19 @@
-#ifndef APP_H
-#define APP_H
+#ifndef ENGINE_H
+#define ENGINE_H
 
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
-#include "matrix.hpp"
-#include "Point.hpp"
-#include "vector.hpp"
+#include "utils/matrix.hpp"
+#include "utils/Point.hpp"
+#include "utils/vector.hpp"
 
 #define SUCCESS 0
 #define FAILURE -1
 #define DEFAULT_WIDTH 1280
 #define DEFAULT_HEIGHT 720
 
-namespace engine
+namespace Dophyn
 {
 	class Engine
 	{

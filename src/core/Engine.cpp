@@ -2,7 +2,7 @@
 #include "core/Color.hpp"
 #include <SDL2/SDL.h>
 
-using namespace engine;
+using namespace Dophyn;
 
 int setRendererDrawColor(SDL_Renderer *renderer, Color *color);
 
@@ -38,16 +38,16 @@ int Engine::init(std::string title, int xpos, int ypos, int width, int height)
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
 	{
-		logError("Initialisation des sybsystemes a echou�");
+		logError("Subsystems initialization failed");
 		return FAILURE;
 	}
 
-	log("Initialisation des sybsystemes");
+	log("Subsystems initialization ");
 
 	if ((window = SDL_CreateWindow(title.c_str(), xpos, ypos, width, height, 0)) == NULL)
-		logError("Creation de la fenetre a echou�");
+		logError("Creation of the window has failed");
 	if ((renderer = SDL_CreateRenderer(window, -1, 0)) == NULL)
-		logError("Creation du rendu a echou�");
+		logError("Creation of the rendering has failed");
 	if (setRendererDrawColor(renderer, new Color(0, 0, 0)) != 0)
 		logError("Renderer draw color failed");
 
@@ -60,7 +60,7 @@ void Engine::updateMousePos(SDL_Event &event)
 {
 	vecPosMouse->x = event.motion.x;
 	vecPosMouse->y = event.motion.y;
-	vecPosMouse->print();
+	// vecPosMouse->print(); affiche les coordonées de la souris sur l'ecran
 }
 
 void Engine::handleEvents()
