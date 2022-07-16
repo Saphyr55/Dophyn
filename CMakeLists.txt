@@ -2,9 +2,12 @@
 
 project (Dophyn)
 
+file(GLOB_RECURSE CORE src/core/*.cpp)
+file(GLOB_RECURSE UTILS src/utils/*.cpp)
+
 include_directories(include ${SDL2_INCLUDE_DIRS})
 
-add_executable (${PROJECT_NAME} "src/main.cpp" "include/utils/Color.hpp" "include/core/Engine.hpp" "include/utils/matrix.hpp" "include/utils/Point.hpp" "include/utils/vector.hpp" "src/utils/Color.cpp" "src/core/Engine.cpp" "src/utils/matrix.cpp" "src/utils/Point.cpp" "src/utils/vector.cpp")
+add_executable (${PROJECT_NAME} "src/main.cpp" ${CORE} ${UTILS} )
 
 if(WIN32)
     find_package(SDL2 CONFIG REQUIRED)

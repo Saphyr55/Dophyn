@@ -1,6 +1,7 @@
 #include "core/Engine.hpp"
 #include "utils/Color.hpp"
 #include <SDL2/SDL.h>
+#include "core/Logger.hpp"
 
 using namespace Dophyn;
 
@@ -38,18 +39,18 @@ int Engine::init(std::string title, int xpos, int ypos, int width, int height)
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
 	{
-		logError("Subsystems initialization failed");
+		Logger::Log::send(Logger::LogProperty::ERROR, "Subsystems initialization failed");
 		return FAILURE;
 	}
 
-	log("Subsystems initialization ");
+	Logger::Log::send(Logger::LogProperty::INFO, "Subsystems initialization");
 
 	if ((window = SDL_CreateWindow(title.c_str(), xpos, ypos, width, height, 0)) == NULL)
-		logError("Creation of the window has failed");
+		Logger::Log::send(Logger::LogProperty::ERROR, "Creation of the window has failed");
 	if ((renderer = SDL_CreateRenderer(window, -1, 0)) == NULL)
-		logError("Creation of the rendering has failed");
+		Logger::Log::send(Logger::LogProperty::ERROR, "Creation of the rendering has failed");
 	if (setRendererDrawColor(renderer, new Color(0, 0, 0)) != 0)
-		logError("Renderer draw color failed");
+		Logger::Log::send(Logger::LogProperty::ERROR, "Renderer draw color failed");
 
 	isRunning = true;
 
@@ -60,7 +61,7 @@ void Engine::updateMousePos(SDL_Event &event)
 {
 	vecPosMouse->x = event.motion.x;
 	vecPosMouse->y = event.motion.y;
-	// vecPosMouse->print(); affiche les coordonées de la souris sur l'ecran
+	vecPosMouse->print(); // affiche les coordonées de la souris sur l'ecran
 }
 
 void Engine::handleEvents()
@@ -95,9 +96,12 @@ void Engine::update()
 
 int Engine::clean()
 {
-	//SDL_DestroyTexture(texture);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	if (texture != nullptr)
+		SDL_DestroyTexture(texture);
+	if (renderer!= nullptr)
+		SDL_DestroyRenderer(renderer);
+	if (window != nullptr)
+		SDL_DestroyWindow(window);
 	SDL_Quit();
 	return EXIT_SUCCESS;
 }

@@ -27,8 +27,6 @@ namespace Dophyn
 		void render();
 		int clean();
 		bool running() { return this->isRunning; };
-		void log(std::string msg) { std::cout << msg << std::endl; }
-		void logError(std::string msg) { std::cerr << msg << SDL_GetError() << std::endl; }
 		void updateMousePos(SDL_Event &event);
 
 		bool isRunning;
