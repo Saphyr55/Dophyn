@@ -1,7 +1,9 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#ifdef _WIN32
 #include <Windows.h>
+#endif
 #include "utils/Color.hpp"
 
 namespace Dophyn

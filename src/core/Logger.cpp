@@ -2,14 +2,15 @@
 #include "core/Logger.hpp"
 #include <stdio.h>
 #include <time.h>
+#ifdef _WIN32
 #include <windows.h>
+#endif
 #include "utils/System.hpp"
 #include "utils/Color.hpp"
 #include "utils/Time.hpp"
 
 namespace Dophyn
-{	
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+{		
 
 	void Log::Warning(std::string message, ...) { Send(LogProperty::WARDING, Color::ColorLogger::YELLOW, message); }
 
@@ -21,20 +22,24 @@ namespace Dophyn
 
 	void Log::Send(const LogProperty property, Color::ColorLogger color, std::string message)
 	{	
-		if (is_win32()) 
-			SendLinux(property, color, message);
-		else 
+		if (is_win32())
 			SendWin32(property, color, message);
+		else 
+			SendLinux(property, color, message);
 	}
 
+	
 	void Log::SendWin32(const LogProperty property, Color::ColorLogger color, std::string message)
-	{
+	{	
+		#ifdef _WIN32
+		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		std::cout << "[" << Time::currentDateTimeLogger() << "] ";
 		SetConsoleTextAttribute(handle, Color::convertToWin32(color));
 		std::cout << property_to_string(property) << " : " << message << std::endl;
 		SetConsoleTextAttribute(handle, Color::convertToWin32(Color::ColorLogger::WHITE));
+		#endif
 	}
-
+	
 	void Log::SendLinux(const LogProperty property, Color::ColorLogger color, std::string message)
 	{
 		std::cout << "[" << Time::currentDateTimeLogger() << "] ";

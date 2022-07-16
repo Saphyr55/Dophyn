@@ -27,7 +27,7 @@ namespace Renderer
 		SDL_DestroyRenderer(renderer);
 	}
 
-	void Renderer::setBackgroundColor(Color::Color& color)
+	void Renderer::setBackgroundColor(Color::Color color)
 	{
 		if(SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, color.transparent) != 0)
 			Dophyn::Log::Warning("Renderer draw color failed");

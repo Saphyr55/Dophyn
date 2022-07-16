@@ -25,9 +25,6 @@ namespace Color
 
 	char* convertToASCII(ColorLogger color);
 	int convertToWin32(ColorLogger color);
-
-
-
 }
 
 
