@@ -4,19 +4,9 @@
 #include <SDL2/SDL.h>
 
 int main(int argc, char **argv)
-{
+{   
+    auto& engine = Dophyn::Engine();
+    if (FAILURE == engine.init()) exit(EXIT_FAILURE);
 
-    Dophyn::Engine *engine = new Dophyn::Engine();
-
-    if (FAILURE == engine->init("My app"))
-        exit(EXIT_FAILURE);
-
-    while (engine->running())
-    {
-        engine->handleEvents();
-        engine->update();
-        engine->render();
-    }
-
-    return engine->clean();
+    return engine.clean();
 }

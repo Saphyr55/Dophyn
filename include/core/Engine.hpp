@@ -7,40 +7,36 @@
 #include "utils/matrix.hpp"
 #include "utils/Point.hpp"
 #include "utils/vector.hpp"
+#include "utils/Color.hpp"
+#include "core/Logger.hpp"
+#include "renderer/Window.hpp"
 
-#define SUCCESS 0
-#define FAILURE -1
-#define DEFAULT_WIDTH 1280
-#define DEFAULT_HEIGHT 720
+constexpr auto SUCCESS = 0;
+constexpr auto FAILURE = -1;
+constexpr auto TITLE = "Dophyn";
 
 namespace Dophyn
 {
+
 	class Engine
 	{
-
 	public:
+		bool isRunning;
+		SDL_Renderer* renderer;
+		SDL_Texture* texture;
+		vector::Vec2Float* vecPosMouse;
+		Renderer::Window* window;
+
 		Engine();
 
-		int init(std::string title);
+		int init();
 		void handleEvents();
 		void update();
 		void render();
 		int clean();
 		bool running() { return this->isRunning; };
 		void updateMousePos(SDL_Event &event);
-
-		bool isRunning;
-		SDL_Window *window;
-		SDL_Renderer *renderer;
-		SDL_Texture *texture;
-		matrix::Mat2x2 *baseMat2x2;
-		point::Point2Float *basePoint2;
-		vector::Vec2Float *vecPosMouse;
-
-	private:
-		int init(std::string title, int xpos, int ypos, int width, int height);
-		int init(std::string title, point::Point2Uint *p, vector::Vec2Uint *v);
-		int init(std::string title, point::Point2Float *p, vector::Vec2Float *v);
+		void launch();
 	};
 }
 

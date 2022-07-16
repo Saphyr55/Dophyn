@@ -2,39 +2,52 @@
 #include "core/Logger.hpp"
 #include <stdio.h>
 #include <time.h>
+#include <windows.h>
 
-void Logger::Log::send(const Logger::LogProperty property = Logger::LogProperty::INFO, std::string message = "")
+namespace Logger
 {	
-	std::cout << "[" << currentDateTime() << "] " << property_to_string(property) << " : " << message << std::endl;
-}
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
-const std::string Logger::Log::currentDateTime()
-{
-	time_t     now = time(0);
-	struct tm  tstruct;
-	char       buf[80];
-	tstruct = *localtime(&now);
-	strftime(buf, sizeof(buf), "%Y-%m-%d | %X", &tstruct);
-	return buf;
-}
+	void Log::Warning(std::string message) { Send(LogProperty::WARDING, ColorLogger::YELLOW, message); }
 
-const std::string Logger::Log::property_to_string(Logger::LogProperty property)
-{	
-	switch (property)
+	void Log::Error(std::string message) { Send(LogProperty::_ERROR, ColorLogger::RED, message); }
+
+	void Log::Info(std::string message) { Send(LogProperty::INFO, ColorLogger::WHITE, message); }
+
+	void Log::Debug(std::string message) { Send(LogProperty::DEBUG, ColorLogger::GREEN, message); }
+
+	void Log::Send(const LogProperty property, ColorLogger color, std::string message)
+	{	
+		std::cout << "[" << currentDateTime() << "] ";
+		SetConsoleTextAttribute(handle, color);
+		std::cout << property_to_string(property) << " : " << message << std::endl;
+		SetConsoleTextAttribute(handle, ColorLogger::WHITE);
+	}
+
+	const std::string Log::currentDateTime()
 	{
-	case Logger::LogProperty::TRACE:
-		return "TRACE";
-	case Logger::LogProperty::DEBUG:
-		return "DEBUG";
-	case Logger::LogProperty::INFO:
-		return "INFO";
-	case Logger::LogProperty::WARDING:
-		return "WARNING";
-	case Logger::LogProperty::ERROR:
-		return "ERROR";
-	case Logger::LogProperty::CRITICAL:
-		return "CRITICAL";
-	default:
-		return "INFO";
+		time_t     now = time(0);
+		struct tm  tstruct;
+		char       buf[80];
+		tstruct = *localtime(&now);
+		strftime(buf, sizeof(buf), "%Y-%m-%d | %X", &tstruct);
+		return buf;
+	}
+
+	const std::string Log::property_to_string(LogProperty property)
+	{
+		switch (property)
+		{
+		case LogProperty::_ERROR:
+			return "ERROR";
+		case LogProperty::DEBUG:
+			return "DEBUG";
+		case LogProperty::INFO:
+			return "INFO";
+		case LogProperty::WARDING:
+			return "WARNING";
+		default:
+			return "INFO";
+		}
 	}
 }

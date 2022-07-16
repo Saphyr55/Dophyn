@@ -4,10 +4,11 @@ project (Dophyn)
 
 file(GLOB_RECURSE CORE src/core/*.cpp)
 file(GLOB_RECURSE UTILS src/utils/*.cpp)
+file(GLOB_RECURSE RENDERER src/renderer/*.cpp)
 
 include_directories(include ${SDL2_INCLUDE_DIRS})
 
-add_executable (${PROJECT_NAME} "src/main.cpp" ${CORE} ${UTILS} )
+add_executable (${PROJECT_NAME} "src/main.cpp" ${CORE} ${UTILS} ${RENDERER})
 
 if(WIN32)
     find_package(SDL2 CONFIG REQUIRED)
@@ -19,7 +20,6 @@ endif()
 
 if(UNIX)
     find_package(SDL2 REQUIRED)
-    include_directories(${SDL2_INCLUDE_DIRS})
     target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
 endif(UNIX)
 
