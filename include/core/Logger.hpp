@@ -19,10 +19,10 @@ namespace Dophyn
 	{
 		
 	public:
-		static void Warning(std::string message);
-		static void Error(std::string message);
-		static void Info(std::string message);
-		static void Debug(std::string message);
+		static void Warning(std::string message, ...);
+		static void Error(std::string message, ...);
+		static void Info(std::string message, ...);
+		static void Debug(std::string message, ...);
 		static void Send(const LogProperty property, Color::ColorLogger color, std::string message);
 
 	private:

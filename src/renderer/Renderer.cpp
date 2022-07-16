@@ -8,12 +8,18 @@ namespace Renderer
 	{	
 		this->window = &window;
 		index = -1;
-		flags = RENDERER_ACCELERATED;
+		flags = RENDERER_SOFTWARE;
 		renderer = SDL_CreateRenderer(window.getWindow(), index, flags);
 
 		if (renderer == NULL)
 			Dophyn::Log::Error("Creation of the rendering has failed");
 
+	}
+
+	void Renderer::render()
+	{	
+		SDL_RenderClear(getRenderer());
+		SDL_RenderPresent(getRenderer());
 	}
 
 	void Renderer::destroy()
@@ -24,7 +30,7 @@ namespace Renderer
 	void Renderer::setBackgroundColor(Color::Color& color)
 	{
 		if(SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, color.transparent) != 0)
-			Dophyn::Log::Error("Renderer draw color failed");
+			Dophyn::Log::Warning("Renderer draw color failed");
 	}
 
 	SDL_Renderer* Renderer::Renderer::getRenderer()

@@ -5,15 +5,15 @@
 
 namespace Dophyn
 {
+	Engine* Engine::engine = nullptr;
 
 	Engine::Engine()
 	{	
 		window = new Renderer::Window(TITLE);
 		renderer = new Renderer::Renderer(*window);
 		vecPosMouse = new vector::Vec2Float(0.f, 0.f);
-		isRunning = false;
+		running = false;
 		texture = nullptr;
-		// timer = new Time::Timer();
 	}
 
 	int Engine::init()
@@ -29,7 +29,7 @@ namespace Dophyn
 		
 		renderer->setBackgroundColor(Color::Color(255, 255, 0));
 		
-		isRunning = true;
+		running = true;
 
 
 		return SUCCESS;
@@ -39,16 +39,15 @@ namespace Dophyn
 	{
 		vecPosMouse->x = event.motion.x;
 		vecPosMouse->y = event.motion.y;
-		// vecPosMouse->print(); // affiche les coordonées de la souris sur l'ecran
 	}
 
 	void Engine::launch()
 	{	
-		while (running())
+		while (isRunning())
 		{	
 			handleEvents();
 			update();
-			render();
+			renderer->render();
 			Time::Timer::timer()->tick();
 		}
 	}
@@ -61,7 +60,7 @@ namespace Dophyn
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			isRunning = false;
+			running = false;
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -72,11 +71,7 @@ namespace Dophyn
 		}
 	}
 
-	void Engine::render()
-	{
-		SDL_RenderClear(renderer->getRenderer());
-		SDL_RenderPresent(renderer->getRenderer());
-	}
+
 
 	void Engine::update()
 	{

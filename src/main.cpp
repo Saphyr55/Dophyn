@@ -4,11 +4,10 @@
 int main(int argc, char **argv)
 {   
 
-    auto& engine = Dophyn::Engine();
-    if (FAILURE == engine.init()) 
+    if (FAILURE == Dophyn::Engine::getEngine()->init())
         exit(EXIT_FAILURE);
     
-    engine.launch();
+    Dophyn::Engine::getEngine()->launch();
 
-    return engine.clean();
+    return Dophyn::Engine::getEngine()->clean();
 }

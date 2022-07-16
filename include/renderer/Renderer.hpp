@@ -25,6 +25,7 @@ namespace Renderer
 		Renderer(Window &window);
 		void destroy();
 		void setBackgroundColor(Color::Color& color);
+		void render();
 
 	public:
 		SDL_Renderer *getRenderer();

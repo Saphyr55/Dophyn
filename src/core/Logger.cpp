@@ -11,13 +11,13 @@ namespace Dophyn
 {	
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	void Log::Warning(std::string message) { Send(LogProperty::WARDING, Color::ColorLogger::YELLOW, message); }
+	void Log::Warning(std::string message, ...) { Send(LogProperty::WARDING, Color::ColorLogger::YELLOW, message); }
 
-	void Log::Error(std::string message) { Send(LogProperty::_ERROR, Color::ColorLogger::RED, message); }
+	void Log::Error(std::string message, ...) { Send(LogProperty::_ERROR, Color::ColorLogger::RED, message); }
+	
+	void Log::Info(std::string message, ...) { Send(LogProperty::INFO, Color::ColorLogger::WHITE, message); }
 
-	void Log::Info(std::string message) { Send(LogProperty::INFO, Color::ColorLogger::WHITE, message); }
-
-	void Log::Debug(std::string message) { Send(LogProperty::DEBUG, Color::ColorLogger::GREEN, message); }
+	void Log::Debug(std::string message, ...) { Send(LogProperty::DEBUG, Color::ColorLogger::GREEN, message); }
 
 	void Log::Send(const LogProperty property, Color::ColorLogger color, std::string message)
 	{	

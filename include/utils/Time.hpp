@@ -7,6 +7,7 @@ namespace Time
 {
 	class Timer
 	{
+
 	public:
 		float MAX_FPS = 120.f;
 		float MAX_DELTA_TIME = 1.f;

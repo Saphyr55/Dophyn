@@ -23,24 +23,33 @@ namespace Dophyn
 	class Engine
 	{
 
-	public:
-		bool isRunning;
+	private:
+		static Engine* engine;
+
+	private:
+		bool running;
 		Renderer::Renderer *renderer;
 		SDL_Texture *texture;
 		vector::Vec2Float *vecPosMouse;
 		Renderer::Window *window;
-		// Time::Timer *timer;
-
+	
+	public:
 		Engine();
 
 		int init();
+		int clean();
 		void handleEvents();
 		void update();
 		void render();
-		int clean();
-		bool running() { return this->isRunning; };
 		void updateMousePos(SDL_Event &event);
 		void launch();
+
+	public:
+		inline static Engine* getEngine() { return engine = (engine != nullptr) ? engine : new Engine(); }
+		inline bool isRunning() { return running; }
+		inline Renderer::Renderer* getRenderer() { return renderer; }
+		inline Renderer::Window* getWindow() { return window; }
+		inline vector::Vec2Float* getPosMouse() { return vecPosMouse; }
 	};
 }
 
