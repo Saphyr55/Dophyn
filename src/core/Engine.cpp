@@ -2,7 +2,8 @@
 
 namespace Dophyn
 {
-	int setRendererDrawColor(SDL_Renderer* renderer, Color* color);
+
+	int setRendererDrawColor(SDL_Renderer* renderer, Color::Color* color);
 
 	Engine::Engine()
 	{	
@@ -22,11 +23,11 @@ namespace Dophyn
 			return FAILURE;
 		}
 
-		Logger::Log::Error("Subsystems initialization");
+		Logger::Log::Info("Subsystems initialization");
 
 		if ((renderer = SDL_CreateRenderer(window->getWindow(), -1, 0)) == NULL)
 			Logger::Log::Error("Creation of the rendering has failed");
-		if (setRendererDrawColor(renderer, new Color(0, 0, 0)) != 0)
+		if (setRendererDrawColor(renderer, new Color::Color(0, 0, 0)) != 0)
 			Logger::Log::Error("Renderer draw color failed");
 
 		isRunning = true;
@@ -97,7 +98,7 @@ namespace Dophyn
 		return EXIT_SUCCESS;
 	}
 
-	int setRendererDrawColor(SDL_Renderer* renderer, Color* color)
+	int setRendererDrawColor(SDL_Renderer* renderer, Color::Color* color)
 	{
 		return SDL_SetRenderDrawColor(renderer, color->red, color->green, color->blue, color->transparent);
 	}

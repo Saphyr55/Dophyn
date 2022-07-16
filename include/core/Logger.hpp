@@ -2,17 +2,10 @@
 #define LOGGER_H
 
 #include <Windows.h>
+#include "utils/Color.hpp"
 
 namespace Logger
 {
-
-	enum ColorLogger
-	{	
-		YELLOW = 6,
-		WHITE = 7,
-		RED = 4,
-		GREEN = 2
-	};
 
 	enum LogProperty
 	{
@@ -30,10 +23,11 @@ namespace Logger
 		static void Error(std::string message);
 		static void Info(std::string message);
 		static void Debug(std::string message);
-		static void Send(const LogProperty, ColorLogger color, std::string message);
+		static void Send(const LogProperty property, Color::ColorLogger color, std::string message);
 
 	private:
-		static void bracketsTime();
+		static void SendWin32(const LogProperty property, Color::ColorLogger color, std::string message);
+		static void SendLinux(const LogProperty property, Color::ColorLogger color, std::string message);
 		static const std::string currentDateTime();
 		static const std::string property_to_string(LogProperty property);
 

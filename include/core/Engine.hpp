@@ -20,6 +20,7 @@ namespace Dophyn
 
 	class Engine
 	{
+
 	public:
 		bool isRunning;
 		SDL_Renderer* renderer;
