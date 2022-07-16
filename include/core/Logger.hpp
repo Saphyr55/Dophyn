@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include "utils/Color.hpp"
 
-namespace Logger
+namespace Dophyn
 {
 
 	enum LogProperty
@@ -28,7 +28,6 @@ namespace Logger
 	private:
 		static void SendWin32(const LogProperty property, Color::ColorLogger color, std::string message);
 		static void SendLinux(const LogProperty property, Color::ColorLogger color, std::string message);
-		static const std::string currentDateTime();
 		static const std::string property_to_string(LogProperty property);
 
 

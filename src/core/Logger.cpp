@@ -5,8 +5,9 @@
 #include <windows.h>
 #include "utils/System.hpp"
 #include "utils/Color.hpp"
+#include "utils/Time.hpp"
 
-namespace Logger
+namespace Dophyn
 {	
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -28,7 +29,7 @@ namespace Logger
 
 	void Log::SendWin32(const LogProperty property, Color::ColorLogger color, std::string message)
 	{
-		std::cout << "[" << currentDateTime() << "] ";
+		std::cout << "[" << Time::currentDateTimeLogger() << "] ";
 		SetConsoleTextAttribute(handle, Color::convertToWin32(color));
 		std::cout << property_to_string(property) << " : " << message << std::endl;
 		SetConsoleTextAttribute(handle, Color::convertToWin32(Color::ColorLogger::WHITE));
@@ -36,18 +37,8 @@ namespace Logger
 
 	void Log::SendLinux(const LogProperty property, Color::ColorLogger color, std::string message)
 	{
-		std::cout << "[" << currentDateTime() << "] ";
+		std::cout << "[" << Time::currentDateTimeLogger() << "] ";
 		std::cout << Color::convertToASCII(color) << property_to_string(property) << " : " << message << "\033[0m" << std::endl;
-	}
-
-	const std::string Log::currentDateTime()
-	{
-		time_t     now = time(0);
-		struct tm  tstruct;
-		char       buf[80];
-		tstruct = *localtime(&now);
-		strftime(buf, sizeof(buf), "%Y-%m-%d | %X", &tstruct);
-		return buf;
 	}
 
 	const std::string Log::property_to_string(LogProperty property)

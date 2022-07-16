@@ -1,17 +1,19 @@
 #include "core/Engine.hpp"
+#include <chrono>
+#include <ctime>
+#include "utils/Time.hpp"
 
 namespace Dophyn
 {
 
-	int setRendererDrawColor(SDL_Renderer* renderer, Color::Color* color);
-
 	Engine::Engine()
 	{	
 		window = new Renderer::Window(TITLE);
-		renderer = nullptr;
+		renderer = new Renderer::Renderer(*window);
 		vecPosMouse = new vector::Vec2Float(0.f, 0.f);
 		isRunning = false;
 		texture = nullptr;
+		// timer = new Time::Timer();
 	}
 
 	int Engine::init()
@@ -19,20 +21,16 @@ namespace Dophyn
 
 		if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
 		{
-			Logger::Log::Error("Subsystems initialization failed");
+			Dophyn::Log::Error("Subsystems initialization failed");
 			return FAILURE;
 		}
 
-		Logger::Log::Info("Subsystems initialization");
-
-		if ((renderer = SDL_CreateRenderer(window->getWindow(), -1, 0)) == NULL)
-			Logger::Log::Error("Creation of the rendering has failed");
-		if (setRendererDrawColor(renderer, new Color::Color(0, 0, 0)) != 0)
-			Logger::Log::Error("Renderer draw color failed");
-
+		Dophyn::Log::Info("Subsystems initialization");
+		
+		renderer->setBackgroundColor(Color::Color(255, 255, 0));
+		
 		isRunning = true;
 
-		launch();
 
 		return SUCCESS;
 	}
@@ -45,12 +43,13 @@ namespace Dophyn
 	}
 
 	void Engine::launch()
-	{
+	{	
 		while (running())
-		{
+		{	
 			handleEvents();
 			update();
 			render();
+			Time::Timer::timer()->tick();
 		}
 	}
 
@@ -75,12 +74,13 @@ namespace Dophyn
 
 	void Engine::render()
 	{
-		SDL_RenderClear(renderer);
-		SDL_RenderPresent(renderer);
+		SDL_RenderClear(renderer->getRenderer());
+		SDL_RenderPresent(renderer->getRenderer());
 	}
 
 	void Engine::update()
 	{
+		
 
 	}
 
@@ -88,8 +88,9 @@ namespace Dophyn
 	{
 		if (texture != nullptr)
 			SDL_DestroyTexture(texture);
-		if (renderer != nullptr)
-			SDL_DestroyRenderer(renderer);
+
+		if (renderer->getRenderer() != nullptr)
+			renderer->destroy();
 
 		if (window->getWindow() != nullptr)
 			window->destroy();
@@ -98,9 +99,9 @@ namespace Dophyn
 		return EXIT_SUCCESS;
 	}
 
-	int setRendererDrawColor(SDL_Renderer* renderer, Color::Color* color)
+	int setRendererDrawColor(Renderer::Renderer& renderer, Color::Color* color)
 	{
-		return SDL_SetRenderDrawColor(renderer, color->red, color->green, color->blue, color->transparent);
+		return SDL_SetRenderDrawColor(renderer.getRenderer(), color->red, color->green, color->blue, color->transparent);
 	}
 
 }

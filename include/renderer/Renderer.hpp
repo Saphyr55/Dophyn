@@ -2,7 +2,8 @@
 #define RENDERER_HPP
 
 #include <SDL2/SDL.h>
-#include "renderer/Window.hpp";
+#include "renderer/Window.hpp"
+#include "utils/Color.hpp"
 
 namespace Renderer
 {
@@ -22,11 +23,12 @@ namespace Renderer
 
 	public:
 		Renderer(Window &window);
+		void destroy();
+		void setBackgroundColor(Color::Color& color);
 
 	public:
-	public:
 		SDL_Renderer *getRenderer();
-		Window *getWindow();
+		Window &getWindow();
 		int getIndex();
 		Uint32 getFlags();
 		Renderer *setFlags(Uint32 &flags);

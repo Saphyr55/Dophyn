@@ -13,7 +13,7 @@ namespace Renderer
         basePoint2 = new point::Point2Float(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
         window = SDL_CreateWindow(this->title->c_str(), basePoint2->x, basePoint2->y, (int)baseVector()->x, (int) baseVector()->y, SDL_WINDOW_SHOWN);
 
-        if (window == NULL) Logger::Log::Error("Creation of the window has failed");
+        if (window == NULL) Dophyn::Log::Error("Creation of the window has failed");
 
     }
 

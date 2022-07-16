@@ -20,10 +20,7 @@ namespace matrix
 		bool isInversible();
 		Mat2x2 *inverse();
 
-		Mat2x2 *operator*(const float a) const
-		{
-			return new Mat2x2(*this->iVec2 * a, *this->jVec2 * a);
-		}
+		Mat2x2 *operator*(const float a) const { return new Mat2x2(*this->iVec2 * a, *this->jVec2 * a); }
 
 		Mat2x2 *operator*(const Mat2x2 *mat) const
 		{

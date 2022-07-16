@@ -1,4 +1,4 @@
-#include "renderer/Renderer.hpp";
+#include "renderer/Renderer.hpp"
 #include "core/Logger.hpp"
 
 namespace Renderer
@@ -12,8 +12,19 @@ namespace Renderer
 		renderer = SDL_CreateRenderer(window.getWindow(), index, flags);
 
 		if (renderer == NULL)
-			Logger::Log::Error("Creation of the rendering has failed");
+			Dophyn::Log::Error("Creation of the rendering has failed");
 
+	}
+
+	void Renderer::destroy()
+	{
+		SDL_DestroyRenderer(renderer);
+	}
+
+	void Renderer::setBackgroundColor(Color::Color& color)
+	{
+		if(SDL_SetRenderDrawColor(renderer, color.red, color.green, color.blue, color.transparent) != 0)
+			Dophyn::Log::Error("Renderer draw color failed");
 	}
 
 	SDL_Renderer* Renderer::Renderer::getRenderer()
@@ -21,9 +32,9 @@ namespace Renderer
 		return renderer;
 	}
 
-	Window* Renderer::Renderer::getWindow()
+	Window& Renderer::Renderer::getWindow()
 	{
-		return window;
+		return *window;
 	}
 
 	int  Renderer::Renderer::getIndex()

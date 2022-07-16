@@ -4,12 +4,14 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
+#include "utils/Time.hpp"
 #include "utils/matrix.hpp"
 #include "utils/Point.hpp"
 #include "utils/vector.hpp"
 #include "utils/Color.hpp"
 #include "core/Logger.hpp"
 #include "renderer/Window.hpp"
+#include "renderer/Renderer.hpp"
 
 constexpr auto SUCCESS = 0;
 constexpr auto FAILURE = -1;
@@ -23,10 +25,11 @@ namespace Dophyn
 
 	public:
 		bool isRunning;
-		SDL_Renderer* renderer;
-		SDL_Texture* texture;
-		vector::Vec2Float* vecPosMouse;
-		Renderer::Window* window;
+		Renderer::Renderer *renderer;
+		SDL_Texture *texture;
+		vector::Vec2Float *vecPosMouse;
+		Renderer::Window *window;
+		// Time::Timer *timer;
 
 		Engine();
 
