@@ -16,7 +16,7 @@ namespace Renderer
             SDL_WINDOW_SHOWN
         );
         if (window == NULL)
-            Logger::Log::Error("Creation of the window has failed");
+            Logger::Log::Error() << "Creation of the window has failed";
 
     }
 
