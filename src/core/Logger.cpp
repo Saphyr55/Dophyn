@@ -8,45 +8,70 @@
 #include "utils/System.hpp"
 #include "utils/Color.hpp"
 #include "utils/Time.hpp"
+#include <stdio.h>
 
-namespace Dophyn
-{		
-
-	void Log::Warning(std::string message, ...) { Send(LogProperty::WARDING, Color::ColorLogger::YELLOW, message); }
-
-	void Log::Error(std::string message, ...) { Send(LogProperty::_ERROR, Color::ColorLogger::RED, message); }
 	
-	void Log::Info(std::string message, ...) { Send(LogProperty::INFO, Color::ColorLogger::WHITE, message); }
+namespace Logger
+{	
 
-	void Log::Debug(std::string message, ...) { Send(LogProperty::DEBUG, Color::ColorLogger::GREEN, message); }
+	template<typename ...Args>
+	void Log::Warning(char* message, Args ...args)
+	{
+		Log::Send(LogProperty::WARNING, Color::ColorLogger::YELLOW, message, args);
+	}
 
-	void Log::Send(const LogProperty property, Color::ColorLogger color, std::string message)
+	template<typename ...Args>
+	void Log::Debug(char* message, Args ...args)
+	{
+		Log::Send(LogProperty::DEBUG, Color::ColorLogger::GREEN, message, args);
+	}
+
+	template<typename ...Args>
+	void Log::Info(char* message, Args ...args)
+	{
+		Log::Send(LogProperty::INFO, Color::ColorLogger::WHITE, message, args);
+	}
+
+	template<typename ...Args>
+	void Log::Error(char* message, Args ...args)
+	{
+		Log::Send(LogProperty::_ERROR, Color::ColorLogger::RED, message, args);
+	}
+
+	template<typename... Args>
+	void Log::Send(LogProperty p, Color::ColorLogger color, char* message, Args... args)
 	{	
 		if (is_win32())
-			SendWin32(property, color, message);
-		else 
-			SendLinux(property, color, message);
+			SendWin32(p, color, message, args);
+		else
+			SendLinux(p, color, message, args);
 	}
 
-	
-	void Log::SendWin32(const LogProperty property, Color::ColorLogger color, std::string message)
-	{	
-		#ifdef _WIN32
-		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-		std::cout << "[" << Time::currentDateTimeLogger() << "] ";
-		SetConsoleTextAttribute(handle, Color::convertToWin32(color));
-		std::cout << property_to_string(property) << " : " << message << std::endl;
-		SetConsoleTextAttribute(handle, Color::convertToWin32(Color::ColorLogger::WHITE));
-		#endif
-	}
-	
-	void Log::SendLinux(const LogProperty property, Color::ColorLogger color, std::string message)
+	template<typename... Args>
+	void Log::SendWin32(LogProperty p, Color::ColorLogger color, char* message, Args... args)
 	{
-		std::cout << "[" << Time::currentDateTimeLogger() << "] ";
-		std::cout << Color::convertToASCII(color) << property_to_string(property) << " : " << message << "\033[0m" << std::endl;
+#ifdef _WIN32
+		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		printf("[ %s ] ", Time::currentDateTimeLogger());
+		SetConsoleTextAttribute(handle, Color::convertToWin32(color));
+		printf("%s : ", property_to_string(p));
+		printf(message, args...);
+		printf("\n")
+		SetConsoleTextAttribute(handle, Color::convertToWin32(Color::ColorLogger::WHITE));
+#endif
 	}
 
-	const std::string Log::property_to_string(LogProperty property)
+
+	template<typename... Args>
+	void Log::SendLinux(LogProperty p, Color::ColorLogger color, char* message, Args... args)
+	{
+		printf("[ %s ] ", Time::currentDateTimeLogger());
+		printf("%s%s : ", Color::convertToASCII(color), property_to_string(p));
+		printf(message, args...);
+		printf("\033[0m\n");
+	}
+
+	const char* Log::property_to_string(LogProperty &property)
 	{
 		switch (property)
 		{
@@ -56,10 +81,13 @@ namespace Dophyn
 			return "DEBUG";
 		case LogProperty::INFO:
 			return "INFO";
-		case LogProperty::WARDING:
+		case LogProperty::WARNING:
 			return "WARNING";
 		default:
 			return "INFO";
 		}
 	}
+
 }
+
+

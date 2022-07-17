@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "utils/matrix.hpp"
+#include "utils/Matrix.hpp"
 #include "utils/Point.hpp"
 
 #define DEFAULT_WIDTH 1280

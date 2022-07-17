@@ -16,7 +16,7 @@ namespace Renderer
             SDL_WINDOW_SHOWN
         );
         if (window == NULL)
-            Dophyn::Log::Error("Creation of the window has failed");
+            Logger::Log::Error("Creation of the window has failed");
 
     }
 

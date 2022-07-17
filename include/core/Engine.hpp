@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include "utils/Time.hpp"
-#include "utils/matrix.hpp"
+#include "utils/Matrix.hpp"
 #include "utils/Point.hpp"
 #include "utils/vector.hpp"
 #include "utils/Color.hpp"

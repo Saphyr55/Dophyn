@@ -5,35 +5,42 @@
 #include <Windows.h>
 #endif
 #include "utils/Color.hpp"
+#include <string> 
 
-namespace Dophyn
-{
+namespace Logger
+{	
 
 	enum LogProperty
 	{
 		DEBUG = 0,
 		INFO = 1,
-		WARDING = 2,
+		WARNING = 2,
 		_ERROR = 3,
 	};
 
 	class Log
 	{
-		
 	public:
-		static void Warning(std::string message, ...);
-		static void Error(std::string message, ...);
-		static void Info(std::string message, ...);
-		static void Debug(std::string message, ...);
-		static void Send(const LogProperty property, Color::ColorLogger color, std::string message);
+		template<typename... Args>
+		static void Warning(char* message, Args... args);
+		template<typename... Args>
+		static void Debug(char* message, Args... args);
+		template<typename... Args>
+		static void Info(char* message, Args... args);
+		template<typename... Args>
+		static void Error(char* message, Args... args);
 
 	private:
-		static void SendWin32(const LogProperty property, Color::ColorLogger color, std::string message);
-		static void SendLinux(const LogProperty property, Color::ColorLogger color, std::string message);
-		static const std::string property_to_string(LogProperty property);
+		template<typename... Args>
+		static void Send(LogProperty p, Color::ColorLogger color, char*message, Args... args);
+		template<typename... Args>
+		static void SendWin32(LogProperty p, Color::ColorLogger color, char* message, Args... args);
+		template<typename... Args>
+		static void SendLinux(LogProperty p, Color::ColorLogger color, char* message, Args... args);
+		static const char* property_to_string(LogProperty &property);
+	};
 
 
-	};	
 
 }
 
