@@ -7,17 +7,20 @@ namespace Renderer
     Window::Window(std::string title)
     {   
         this->title = &title;
-        baseMat2x2 = new matrix::Mat2x2(
-            new vector::Vec2Float(0, DEFAULT_HEIGHT),
-            new vector::Vec2Float(DEFAULT_WIDTH, 0));
-        basePoint2 = new point::Point2Float(SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-        window = SDL_CreateWindow(this->title->c_str(), basePoint2->x, basePoint2->y, (int)baseVector()->x, (int) baseVector()->y, SDL_WINDOW_SHOWN);
-
-        if (window == NULL) Dophyn::Log::Error("Creation of the window has failed");
+        baseMat2x2 = new matrix::Mat2x2<Uint32>(0, DEFAULT_HEIGHT, DEFAULT_WIDTH, 0);
+        basePoint2 = new point::Point2<Uint32>( SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+        window = SDL_CreateWindow(
+            this->title->c_str(),
+            basePoint2->x, basePoint2->y,
+            getBaseVector()->x, getBaseVector()->y,
+            SDL_WINDOW_SHOWN
+        );
+        if (window == NULL)
+            Dophyn::Log::Error("Creation of the window has failed");
 
     }
 
-    vector::Vec2Float* Window::baseVector()
+    vector::Vec2<Uint32>* Window::getBaseVector()
     {
         return (*baseMat2x2->iVec2 + *baseMat2x2->jVec2);
     }
@@ -57,11 +60,11 @@ namespace Renderer
     {   
         return title;
     }
-    matrix::Mat2x2* Window::getBaseMatrix2x2()
+    matrix::Mat2x2<Uint32>* Window::getBaseMatrix2x2()
     {
         return baseMat2x2;
     }
-    point::Point2Float* Window::getBasePoint2Float()
+    point::Point2<Uint32>* Window::getBasePoint2Float()
     {
         return basePoint2;
     }

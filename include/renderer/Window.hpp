@@ -17,12 +17,11 @@ namespace Renderer
 	private:
 		SDL_Window *window;
 		std::string *title;
-		matrix::Mat2x2 *baseMat2x2;
-		point::Point2Float *basePoint2;
+		matrix::Mat2x2<Uint32> *baseMat2x2;
+		point::Point2<Uint32> *basePoint2;
 
 	public:
 		Window(std::string title);
-		vector::Vec2Float* baseVector();
 		void hideWindow();
 		void showWindow();
 		void raiseWindow();
@@ -30,10 +29,11 @@ namespace Renderer
 		void destroy();
 
 	public:
+		vector::Vec2<Uint32>* getBaseVector();
 		SDL_Window* getWindow();
 		std::string* getTitle();
-		matrix::Mat2x2* getBaseMatrix2x2();
-		point::Point2Float* getBasePoint2Float();
+		matrix::Mat2x2<Uint32>* getBaseMatrix2x2();
+		point::Point2<Uint32>* getBasePoint2Float();
 	};
 }
 
