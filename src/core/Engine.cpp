@@ -11,7 +11,7 @@ namespace Dophyn
 	{	
 		window = new Renderer::Window(TITLE);
 		renderer = new Renderer::Renderer(*window);
-		vecPosMouse = new vector::Vec2Float(0.f, 0.f);
+		vecPosMouse = new vector::Vec2<float>(0.f, 0.f);
 		running = false;
 		texture = nullptr;
 	}

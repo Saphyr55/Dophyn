@@ -1,22 +1,20 @@
-#pragma once
+#ifndef POINT_HPP
+#define POINT_HPP
 
 namespace point
 {
-
-	class Point2Uint
+	template<typename T>
+	class Point2
 	{
 
 	public:
-		int x, y;
-		Point2Uint(int x, int y);
-	};
-
-	class Point2Float
-	{
-
+		T x, y;
+	
 	public:
-		float x, y;
-		Point2Float(float x, float y);
+		inline Point2(T x, T y) { this->x = x; this->y = y; };
+	
 	};
 
 }
+
+#endif

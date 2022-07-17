@@ -30,7 +30,7 @@ namespace Dophyn
 		bool running;
 		Renderer::Renderer *renderer;
 		SDL_Texture *texture;
-		vector::Vec2Float *vecPosMouse;
+		vector::Vec2<float> *vecPosMouse;
 		Renderer::Window *window;
 	
 	public:
@@ -40,7 +40,6 @@ namespace Dophyn
 		int clean();
 		void handleEvents();
 		void update();
-		void render();
 		void updateMousePos(SDL_Event &event);
 		void launch();
 
@@ -49,7 +48,7 @@ namespace Dophyn
 		inline bool isRunning() { return running; }
 		inline Renderer::Renderer* getRenderer() { return renderer; }
 		inline Renderer::Window* getWindow() { return window; }
-		inline vector::Vec2Float* getPosMouse() { return vecPosMouse; }
+		inline vector::Vec2<float>* getPosMouse() { return vecPosMouse; }
 	};
 }
 

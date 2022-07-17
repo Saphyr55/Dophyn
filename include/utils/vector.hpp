@@ -1,44 +1,29 @@
 #ifndef VEC_H
 #define VEC_H
 
-#include "Point.hpp"
+#include "utils/Point.hpp"
 
 namespace vector 
 {
-	class Vec2Uint
+	template<typename T>
+	class Vec2
 	{
-	public:
-		int x, y;
 
-		Vec2Uint(int x, int y);
-		Vec2Uint(point::Point2Uint& p1, point::Point2Uint& p2);
-		
-		vector::Vec2Uint* scaleBy(int a);
-
-		Vec2Uint* operator+ (const Vec2Uint& v) const { return new Vec2Uint(x + v.x, y + v.y); }
-		Vec2Uint* operator- (const Vec2Uint& v) const { return new Vec2Uint(x - v.x, y - v.y); }
-		Vec2Uint* operator* (const int a) const { return new Vec2Uint(x*a, y*a); }
-		void print();
-
-	};
-
-	class Vec2Float
-	{
-	public:
-		float x, y;
+	public:	
+		inline void vector::Vec2<T>::scaleBy(T a) { this->x *= a; this->y *= a; }
+		inline Vec2<T>* operator+ (const Vec2<T>& v) const { return new Vec2<T>(x + v.x, y + v.y); }
+		inline Vec2<T>* operator- (const Vec2<T>& v) const { return new Vec2<T>(x - v.x, y - v.y); }
+		inline Vec2<T>* operator* (const int a) const { return new Vec2<T>(x * a, y * a); }
 
 	public:
-		Vec2Float(float x, float y);
-		Vec2Float(point::Point2Float* p1, point::Point2Float* p2);
-		vector::Vec2Float* scaleBy(float a);
-		void print();
-
+		inline Vec2<T>(point::Point2<T>& p1, point::Point2<T>& p2) { this->x = p2.getX() - p1.getX(); this->y = p2.getY() - p1.getY(); }
+		inline Vec2<T>(T x, T y) { this->x = x; this->y = y; };
+	
 	public:
-		Vec2Float* operator+ (const Vec2Float& v) const { return new Vec2Float(x + v.x, y + v.y); }
-		Vec2Float* operator- (const Vec2Float& v) const { return new Vec2Float(x - v.x, y - v.y); }
-		Vec2Float* operator* (const float a) const { return new Vec2Float(x * a, y * a); }
+		T x, y;
 		
 	};
+
 
 }
 #endif
