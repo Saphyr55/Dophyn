@@ -9,8 +9,8 @@ namespace vector
 	class Vec2
 	{
 
-	public:	
-		inline void vector::Vec2<T>::scaleBy(T a) { this->x *= a; this->y *= a; }
+	public:
+		// void vector::Vec2<T>::scaleBy(T a) { this->x *= a; this->y *= a; }
 		inline Vec2<T>* operator+ (const Vec2<T>& v) const { return new Vec2<T>(x + v.x, y + v.y); }
 		inline Vec2<T>* operator- (const Vec2<T>& v) const { return new Vec2<T>(x - v.x, y - v.y); }
 		inline Vec2<T>* operator* (const int a) const { return new Vec2<T>(x * a, y * a); }

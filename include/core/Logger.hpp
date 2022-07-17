@@ -1,40 +1,42 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#pragma once
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
 #include "utils/Color.hpp"
+#include <string> 
 
-namespace Dophyn
-{
+namespace Logger
+{	
 
-	enum LogProperty
+	enum LogSeverity
 	{
-		DEBUG = 0,
-		INFO = 1,
-		WARDING = 2,
-		_ERROR = 3,
+		INFO, WARNING, _ERROR, DEBUG 
 	};
 
 	class Log
 	{
-		
-	public:
-		static void Warning(std::string message, ...);
-		static void Error(std::string message, ...);
-		static void Info(std::string message, ...);
-		static void Debug(std::string message, ...);
-		static void Send(const LogProperty property, Color::ColorLogger color, std::string message);
 
 	private:
-		static void SendWin32(const LogProperty property, Color::ColorLogger color, std::string message);
-		static void SendLinux(const LogProperty property, Color::ColorLogger color, std::string message);
-		static const std::string property_to_string(LogProperty property);
+		LogSeverity severity; 
+		Color::ColorLogger color;
 
+	private:
+		Log(LogSeverity severity, Color::ColorLogger color);
+	public:
+		~Log();
 
-	};	
+	public:
+		template<typename T>
+		Log& operator<<(const T &s) { std::cout << s; return *this; }
+
+	public:
+		static Log Warning();
+		static Log Debug();
+		static Log Info();
+		static Log Error();
+
+	private:
+		void Send();
+		static const char* severity_to_string(LogSeverity &property);
+	
+	};
 
 }
-
-#endif

@@ -3,6 +3,8 @@
 #include <ctime>
 #include "utils/Time.hpp"
 
+using namespace Logger;
+
 namespace Dophyn
 {
 	Engine* Engine::engine = nullptr;
@@ -21,11 +23,11 @@ namespace Dophyn
 
 		if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
 		{
-			Dophyn::Log::Error("Subsystems initialization failed");
+			Log::Error() << "Subsystems initialization failed";
 			return FAILURE;
 		}
 
-		Dophyn::Log::Info("Subsystems initialization");
+		Log::Info() << "Subsystems initialization";
 		
 		renderer->setBackgroundColor(Color::Color(255, 255, 0));
 		
@@ -76,6 +78,7 @@ namespace Dophyn
 	void Engine::update()
 	{
 		
+		Log::Debug() << this->getPosMouse()->x << " " << this->getPosMouse()->y;
 
 	}
 
@@ -92,11 +95,6 @@ namespace Dophyn
 
 		SDL_Quit();
 		return EXIT_SUCCESS;
-	}
-
-	int setRendererDrawColor(Renderer::Renderer& renderer, Color::Color* color)
-	{
-		return SDL_SetRenderDrawColor(renderer.getRenderer(), color->red, color->green, color->blue, color->transparent);
 	}
 
 }

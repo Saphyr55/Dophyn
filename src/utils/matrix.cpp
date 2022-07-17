@@ -1,4 +1,4 @@
-#include "utils/matrix.hpp"
+#include "utils/Matrix.hpp"
 
 namespace matrix
 {
