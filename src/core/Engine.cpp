@@ -3,7 +3,7 @@
 #include <ctime>
 #include "utils/Time.hpp"
 
-using namespace Logger;
+using namespace Dophyn::Logger;
 
 namespace Dophyn
 {
@@ -49,7 +49,7 @@ namespace Dophyn
 		{	
 			handleEvents();
 			update();
-			renderer->render();
+			render();
 			Time::Timer::timer()->tick();
 		}
 	}
@@ -73,12 +73,17 @@ namespace Dophyn
 		}
 	}
 
+	void Engine::render()
+	{
+		engine->renderer->render();
+	}
+
 
 
 	void Engine::update()
 	{
 		
-		Log::Debug() << this->getPosMouse()->x << " " << this->getPosMouse()->y;
+		// Log::Debug() << this->getPosMouse()->x << " " << this->getPosMouse()->y;
 
 	}
 

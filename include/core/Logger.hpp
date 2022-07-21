@@ -2,41 +2,42 @@
 
 #include "utils/Color.hpp"
 #include <string> 
+#include <iostream>
 
-namespace Logger
-{	
-
-	enum LogSeverity
-	{
-		INFO, WARNING, _ERROR, DEBUG 
-	};
-
-	class Log
+namespace Dophyn
+{
+	namespace Logger
 	{
 
-	private:
-		LogSeverity severity; 
-		Color::ColorLogger color;
+		enum LogSeverity { INFO, WARNING, _ERROR, DEBUG };
 
-	private:
-		Log(LogSeverity severity, Color::ColorLogger color);
-	public:
-		~Log();
+		class Log
+		{
 
-	public:
-		template<typename T>
-		Log& operator<<(const T &s) { std::cout << s; return *this; }
+		private:
+			LogSeverity severity;
+			Color::ColorLogger color;
 
-	public:
-		static Log Warning();
-		static Log Debug();
-		static Log Info();
-		static Log Error();
+		private:
+			Log(LogSeverity severity, Color::ColorLogger color);
+		public:
+			~Log();
 
-	private:
-		void Send();
-		static const char* severity_to_string(LogSeverity &property);
-	
-	};
+		public:
+			template<typename T>
+			Log& operator<<(const T& s) { std::cout << s; return *this; }
 
+		public:
+			static Log Warning();
+			static Log Debug();
+			static Log Info();
+			static Log Error();
+
+		private:
+			void Send();
+			static const char* severity_to_string(LogSeverity& property);
+
+		};
+
+	}
 }

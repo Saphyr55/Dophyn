@@ -39,6 +39,7 @@ namespace Dophyn
 		int init();
 		int clean();
 		void handleEvents();
+		void render();
 		void update();
 		void updateMousePos(SDL_Event &event);
 		void launch();
