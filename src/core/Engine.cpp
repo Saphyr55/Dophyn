@@ -23,7 +23,7 @@ namespace Dophyn
 
 		if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
 		{
-			Log::Error() << "Subsystems initialization failed";
+			Log::Error() << "Subsystems initialization failed ; " << SDL_GetError();
 			return FAILURE;
 		}
 

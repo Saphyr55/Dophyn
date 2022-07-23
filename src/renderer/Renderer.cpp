@@ -15,7 +15,7 @@ namespace Dophyn
 			renderer = SDL_CreateRenderer(window.getWindow(), index, flags);
 
 			if (renderer == NULL)
-				Logger::Log::Error() << "Creation of the rendering has failed";
+				Logger::Log::Error() << "Creation of the rendering has failed ; " << SDL_GetError();
 		}
 
 		void Renderer::render()
