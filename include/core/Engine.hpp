@@ -51,6 +51,17 @@ namespace Dophyn
 		inline Renderer::Window* getWindow() { return window; }
 		inline vector::Vec2<float>* getPosMouse() { return vecPosMouse; }
 	};
+
+	class InitDophyn
+	{
+	public:
+		InitDophyn();
+		~InitDophyn();
+
+	private:
+
+	};
+
 }
 
 #endif

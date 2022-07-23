@@ -20,14 +20,6 @@ namespace Dophyn
 
 	int Engine::init()
 	{
-
-		if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
-		{
-			Log::Error() << "Subsystems initialization failed ; " << SDL_GetError();
-			return FAILURE;
-		}
-
-		Log::Info() << "Subsystems initialization";
 		
 		renderer->setBackgroundColor(Color::Color(255, 255, 0));
 		
@@ -98,9 +90,19 @@ namespace Dophyn
 		if (window->getWindow() != nullptr)
 			window->destroy();
 
-		SDL_Quit();
 		return EXIT_SUCCESS;
 	}
+
+	InitDophyn::InitDophyn()
+	{
+
+		if (SDL_Init(SDL_INIT_EVERYTHING) != SUCCESS)
+			Log::Error() << "Subsystems initialization failed ; " << SDL_GetError();
+		else
+			Log::Info() << "Subsystems initialization";
+	}
+
+	InitDophyn::~InitDophyn() { SDL_Quit(); }
 
 }
 
